@@ -30,6 +30,7 @@
             --font-heading: 'Playfair Display', serif;
             --font-literary: 'Cormorant Garamond', serif;
             --font-cursive: 'Great Vibes', cursive;
+            --font-main: 'Poppins', sans-serif;
         }
 
         body {
@@ -62,6 +63,7 @@
         .gate-door {
             width: 50%;
             height: 100%;
+            /* Dark Mahogany Wood Texture & Gradient */
             background: linear-gradient(135deg, #1f0508 0%, #3a0d13 50%, #150204 100%);
             border: 4px double var(--gold-primary);
             position: relative;
@@ -167,7 +169,7 @@
             z-index: 1;
         }
 
-        /* ORNATE GOLD FRAMES */
+        /* ORNATE GOLD FRAMES (Sistem Kotak Sempurna Agar Tidak Terpotong) */
         .ornate-gold-frame {
             border: 14px double var(--gold-primary);
             background-color: #0d0d0d;
@@ -190,13 +192,6 @@
                 0 30px 60px rgba(0,0,0,1);
         }
 
-        /* Oval Variant */
-        .ornate-gold-frame.oval {
-            border-radius: 9999px;
-            overflow: hidden;
-            aspect-ratio: 1 / 1;
-        }
-
         .canvas-area {
             width: 100%;
             height: 320px;
@@ -205,15 +200,10 @@
             position: relative;
         }
 
-        .ornate-gold-frame.oval .canvas-area {
-            height: 100%;
-            border-radius: 9999px;
-        }
-
         .canvas-area img, .canvas-area video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Sesuai instruksi agar seluruh foto tidak terpotong */
             filter: grayscale(35%) brightness(0.95);
             transition: filter 0.6s ease, transform 0.6s ease;
         }
@@ -240,10 +230,6 @@
         .ornate-gold-frame:hover + .museum-placard {
             border-color: var(--gold-bright);
             background: linear-gradient(135deg, #220307 0%, #3a080f 100%);
-        }
-
-        .ornate-gold-frame.oval + .museum-placard {
-            margin-top: 25px;
         }
 
         .placard-title {
@@ -304,6 +290,50 @@
         @keyframes rotate-disc {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* RED ROPE BARRIER */
+        .rope-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+            height: 70px;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .rope-post {
+            width: 14px;
+            height: 60px;
+            background: linear-gradient(90deg, var(--gold-primary), #FFF, var(--gold-dark));
+            position: relative;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+        }
+
+        .rope-post::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -5px;
+            width: 24px;
+            height: 12px;
+            background: radial-gradient(circle, #FFF, var(--gold-primary), var(--gold-dark));
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .rope-barrier {
+            position: absolute;
+            bottom: 30px;
+            left: 8px;
+            right: 8px;
+            height: 35px;
+            border-bottom: 10px solid #8B0000;
+            border-radius: 0 0 100% 100%;
+            box-shadow: 0 6px 8px rgba(0,0,0,0.5);
+            z-index: 2;
         }
 
         /* INTERACTIVE ROYAL ENVELOPE */
@@ -537,11 +567,11 @@
         <i class="fa-solid fa-music"></i>
     </button>
     <audio id="bg-music" loop>
-        <source src="music.mp3" type="audio/mpeg">
+        <source src="audio/mesra.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- =========================================
-         GRAND ENTRANCE (Gerbang Museum Klasik & Musik)
+        <!-- =========================================
+         GRAND ENTRANCE (Gerbang Museum Klasik Kayu Mahoni Megah)
          ========================================= -->
     <div id="entrance-gate">
         <div class="gate-door door-left">
@@ -554,7 +584,7 @@
             <div class="door-panel-dec"></div>
         </div>
     </div>
-
+    
     <!-- MAIN GALLERY WRAPPER -->
     <div id="gallery-wrapper" class="velvet-walls">
         
@@ -591,11 +621,545 @@
                         <div class="w-20 h-[1.5px] bg-[#D4AF37] mx-auto mt-4 opacity-75"></div>
                     </div>
 
-                    <!-- DYNAMIC & VARIATIVE GRID -->
+                    <!-- DYNAMIC & VARIATIVE GRID (Semua bingkai berdesain kotak indah layaknya galeri fisik premium) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 relative z-10">
 
-                        <!-- Item 1: OVAL -->
+                        <!-- Item 1: RECTANGLE PORTRAIT -->
                         <div class="flex flex-col items-center">
-                            <div class="ornate-gold-frame oval max-w-[280px] md:max-w-xs">
-                                <div class="w-full h-full overflow-hidden rounded-full">
-                                    <img src="10
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area">
+                                    <img src="img/IMG-20251124-WA0046.jpg" alt="The Universe in Your Eyes">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">The Universe in Your Eyes</h3>
+                                <p class="placard-desc">"Sorot mata yang selalu punya cara untuk menenangkan bisingnya dunia. Di matanya, aku menemukan rumah."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: RECTANGLE LANDSCAPE -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area !h-[240px] md:!h-[280px]">
+                                    <img src="img/IMG-20251129-WA0008.jpg" alt="Framed Perfection">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">Framed Perfection</h3>
+                                <p class="placard-desc">"Bahkan di balik sekat transparan, pesonanya tetap menjadi yang paling jelas terbaca."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: TALL PORTRAIT -->
+                        <div class="flex flex-col items-center lg:row-span-2 justify-start">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area !h-[450px]">
+                                    <img src="img/IMG-20251130-WA0019.jpg" alt="A Journey with You">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">A Journey with You</h3>
+                                <p class="placard-desc">"Satu senyuman yang sanggup membuat perjalanan terasa begitu singkat."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 4: RECTANGLE PORTRAIT -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area">
+                                    <img src="img/IMG-20260207-WA0183.jpg" alt="Sweet Simplicity">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">Sweet Simplicity</h3>
+                                <p class="placard-desc">"Definisi keindahan yang tidak membutuhkan banyak ruang untuk bersinar."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 5: RECTANGLE SQUARE STYLE -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area !h-[300px]">
+                                    <img src="img/IMG-20260311-WA0013.jpg" alt="Playful Soul">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">Playful Soul</h3>
+                                <p class="placard-desc">"Sisi menggemaskan yang selalu berhasil mencuri perhatian."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 6: RECTANGLE PORTRAIT -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area">
+                                    <img src="img/IMG-20260405-WA0017.jpg" alt="My Favorite Distraction">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">My Favorite Distraction</h3>
+                                <p class="placard-desc">"Dia adalah karya seni yang paling mengagumkan di mataku."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 7: LANDSCAPE STYLE -->
+                        <div class="flex flex-col items-center md:col-span-2 lg:col-span-2">
+                            <div class="ornate-gold-frame w-full max-w-2xl">
+                                <div class="canvas-area !h-[300px] md:!h-[360px]">
+                                    <img src="img/IMG-20260420-WA0003.jpg" alt="The Velvet Dream">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-2xl rounded">
+                                <h3 class="placard-title">The Velvet Dream</h3>
+                                <p class="placard-desc">"Di bawah pendar cahaya, dia adalah keanggunan yang nyata."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 8: RECTANGLE PORTRAIT -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area">
+                                    <img src="img/IMG-20260429-WA0010.jpg" alt="Serenity">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">Serenity</h3>
+                                <p class="placard-desc">"Menatapnya adalah cara terbaik untuk melupakan kerasnya hari."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 9: RECTANGLE SQUARE STYLE -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area !h-[300px]">
+                                    <img src="img/IMG-20260515-WA0024.jpg" alt="My Favorite Masterpiece">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">My Favorite Masterpiece</h3>
+                                <p class="placard-desc">"Senyuman tipis yang sanggup mengalahkan keindahan pameran seni mana pun."</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 10: RECTANGLE PORTRAIT -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame w-full max-w-sm">
+                                <div class="canvas-area">
+                                    <img src="img/IMG-20260519-WA0036.jpg" alt="Shades of Softness">
+                                </div>
+                            </div>
+                            <div class="museum-placard w-full max-w-sm rounded">
+                                <h3 class="placard-title">Shades of Softness</h3>
+                                <p class="placard-desc">"Dibalut warna hangat, dia adalah kelembutan yang ingin selalu aku jaga."</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Red Rope Barrier at the bottom of Exhibition Room I -->
+                    <div class="rope-container">
+                        <div class="rope-post"></div>
+                        <div class="rope-barrier"></div>
+                        <div class="rope-post"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- =========================================
+                 EXHIBITION ROOM 2: "OUR STORY" (Momen Berdua & Video)
+                 ========================================= -->
+            <section id="our-story" class="spotlight-source py-16 border-t border-neutral-950/60 bg-black/10">
+                <div class="container mx-auto px-6">
+                    
+                    <div class="text-center mb-24 relative z-10">
+                        <h2 class="font-['Cinzel'] font-semibold text-2xl md:text-4xl text-[#D4AF37] tracking-[4px] uppercase mb-3">
+                            Exhibition Room II: Our Story
+                        </h2>
+                        <p class="font-['Playfair_Display'] italic text-neutral-300 text-lg md:text-xl">
+                            "When Two Worlds Collide"
+                        </p>
+                        <div class="w-20 h-[1.5px] bg-[#D4AF37] mx-auto mt-4 opacity-75"></div>
+                    </div>
+
+                    <!-- SUB-SECTION A: FOTO BERDUA (Semua menggunakan bingkai kotak emas mewah sesuai instruksi Anda) -->
+                    <div class="mb-24 relative z-10">
+                        <h3 class="font-['Cinzel'] font-semibold text-lg md:text-xl text-[#F9F6EE] tracking-widest mb-12 border-b border-neutral-950 pb-4">
+                            I. Mutual Portraits
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                            
+                            <!-- US 1 -->
+                            <div class="flex flex-col items-center">
+                                <div class="ornate-gold-frame w-full max-w-md">
+                                    <div class="canvas-area !h-[280px] md:!h-[320px]">
+                                        <img src="img/huhuhaha3.jpg" alt="The Journey of Us">
+                                    </div>
+                                </div>
+                                <div class="museum-placard w-full max-w-md rounded">
+                                    <h4 class="placard-title">The Journey of Us</h4>
+                                    <p class="placard-desc">"Ke mana pun roda ini berputar dan sejauh apa pun jalanan yang harus kita tempuh, aku tidak pernah khawatir. Sebab di sampingku, ada kamu yang selalu melengkapi setiap langkah."</p>
+                                </div>
+                            </div>
+
+                            <!-- US 2 -->
+                            <div class="flex flex-col items-center">
+                                <div class="ornate-gold-frame w-full max-w-md">
+                                    <div class="canvas-area !h-[280px] md:!h-[320px]">
+                                        <img src="img/huhuhaha4.jpg" alt="Double Trouble, Infinite Joy">
+                                    </div>
+                                </div>
+                                <div class="museum-placard w-full max-w-md rounded">
+                                    <h4 class="placard-title">Double Trouble, Infinite Joy</h4>
+                                    <p class="placard-desc">"Satu frame yang penuh dengan tawa dan tingkah random kita. Bersamamu, hal paling sederhana pun selalu berubah menjadi memori yang paling menyenangkan."</p>
+                                </div>
+                            </div>
+
+                            <!-- US 3 -->
+                            <div class="flex flex-col items-center">
+                                <div class="ornate-gold-frame w-full max-w-md">
+                                    <div class="canvas-area !h-[280px] md:!h-[320px]">
+                                        <img src="img/huhuhaha.jpg" alt="Dine and Divine">
+                                    </div>
+                                </div>
+                                <div class="museum-placard w-full max-w-md rounded">
+                                    <h4 class="placard-title">Dine and Divine</h4>
+                                    <p class="placard-desc">"Menghabiskan waktu di tempat sederhana, namun terasa begitu istimewa karena kehadiranmu. Duduk di hadapanmu adalah pemandangan terindah yang tak pernah membosankan."</p>
+                                </div>
+                            </div>
+
+                            <!-- US 4 -->
+                            <div class="flex flex-col items-center">
+                                <div class="ornate-gold-frame w-full max-w-md">
+                                    <div class="canvas-area !h-[280px] md:!h-[320px]">
+                                        <img src="img/huhuhaha2.jpg" alt="Under the Night Sky">
+                                    </div>
+                                </div>
+                                <div class="museum-placard w-full max-w-md rounded">
+                                    <h4 class="placard-title">Under the Night Sky</h4>
+                                    <p class="placard-desc">"Ditemani angin malam dan bisingnya jalanan, duniaku terasa lengkap saat menatap matamu. Terima kasih telah menjadi bagian terbaik dari setiap hariku, dan mari terus melukis cerita di bawah langit yang sama sampai waktu enggan memisahkan."</p>
+                                </div>
+                            </div>
+
+                        </div>
+                                    </div>
+
+                                        <!-- SUB-SECTION B: GALERI VIDEO BERGERAK -->
+                    <div class="mt-20 relative z-10">
+                        <h3 class="font-['Cinzel'] font-semibold text-lg md:text-xl text-[#F9F6EE] tracking-widest mb-10 border-b border-neutral-950 pb-4">
+                            II. Animated Architecture
+                        </h3>
+
+                        <!-- SINGLE LUXURIOUS PLACARD -->
+                        <div class="flex justify-center mb-16">
+                            <div class="velvet-large-placard w-full max-w-3xl p-8 md:p-10 text-center rounded">
+                                <h4 class="font-['Cinzel'] font-bold text-lg md:text-xl text-[#D4AF37] tracking-widest uppercase mb-4">
+                                    The Moving Architecture of Love 📽️
+                                </h4>
+                                <p class="font-['Playfair_Display'] italic text-neutral-200 text-base md:text-lg leading-relaxed px-2 md:px-6">
+                                    "Sebab foto adakalanya diam, tapi rekaman ini adalah bukti kalau setiap detik bersamamu selalu bergerak penuh warna. Video-video ini bukan sekadar potongan durasi, melainkan cara abadi untuk memutar kembali bagian terbaik di dalam hidupku, yaitu kamu."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 4 VIDEO PLAYERS -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            
+                            <!-- Video 1 -->
+                            <div class="ornate-gold-frame w-full overflow-hidden">
+                                <div class="w-full aspect-video">
+                                    <video controls loop muted class="w-full h-full object-cover">
+                                        <source src="video/1.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+
+                            <!-- Video 2 -->
+                            <div class="ornate-gold-frame w-full overflow-hidden">
+                                <div class="w-full aspect-video">
+                                    <video controls loop muted class="w-full h-full object-cover">
+                                        <source src="video/2.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+
+                            <!-- Video 3 -->
+                            <div class="ornate-gold-frame w-full overflow-hidden">
+                                <div class="w-full aspect-video">
+                                    <video controls loop muted class="w-full h-full object-cover">
+                                        <source src="video/3.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+
+                            <!-- Video 4 -->
+                            <div class="ornate-gold-frame w-full overflow-hidden">
+                                <div class="w-full aspect-video">
+                                    <video controls loop muted class="w-full h-full object-cover">
+                                        <source src="video/4.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Red Rope Barrier at the bottom of Exhibition Room II -->
+                    <div class="rope-container">
+                        <div class="rope-post"></div>
+                        <div class="rope-barrier"></div>
+                        <div class="rope-post"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- =========================================
+                 ADDITIONAL SECTION: REASONS WHY I LOVE YOU (Fitur Accordion)
+                 ========================================= -->
+            <section id="love-reasons" class="py-24 border-t border-neutral-950/60 bg-black/10">
+                <div class="container mx-auto px-6 max-w-3xl">
+                    
+                    <div class="text-center mb-16">
+                        <h2 class="font-['Cinzel'] font-semibold text-2xl md:text-4xl text-[#D4AF37] tracking-[4px] uppercase mb-3">
+                            Notes on Why You're My Everything
+                        </h2>
+                        <div class="w-20 h-[1.5px] bg-[#D4AF37] mx-auto mt-4 opacity-75"></div>
+                    </div>
+
+                    <!-- Accordion Box -->
+                    <div class="museum-accordion rounded-lg overflow-hidden">
+                        
+                        <!-- Accordion Item 1 -->
+                        <div class="acc-item">
+                            <button class="acc-header">
+                                1. Kelembutan caramu mendengarkan <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="acc-content">
+                                <p>"Di saat duniaku sedang ramai dan melelahkan, keheningan teduh yang kamu berikan setiap kali aku bercerita selalu menjadi obat penenang terbaik. Caramu menyimak meluruhkan segala gemuruh resah di kepalaku."</p>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Item 2 -->
+                        <div class="acc-item">
+                            <button class="acc-header">
+                                2. Kamu menerimaku apa adanya <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="acc-content">
+                                <p>"Kamu mencintai setiap ketidaksempurnaan, tawa konyol, hingga kelemahanku tanpa pernah menuntutku menjadi sosok yang asing. Di sampingmu, aku menemukan definisi penerimaan yang seutuhnya."</p>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Item 3 -->
+                        <div class="acc-item">
+                            <button class="acc-header">
+                                3. Senyum hangat penawar lelah <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="acc-content">
+                                <p>"Setiap lengkungan manis di bibirmu adalah lukisan terindah yang mengalahkan mahakarya agung mana pun. Senyumanmu adalah tempat singgah paling nyaman setelah seharian berhadapan dengan kerasnya dunia."</p>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Item 4 -->
+                        <div class="acc-item">
+                            <button class="acc-header">
+                                4. Kedewasaan caramu bersabar <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="acc-content">
+                                <p>"Terima kasih telah membimbing egoku dengan kelembutan hatimu yang seluas samudera. Kesabaranmu di kala kekacauan melanda adalah mercusuar yang menuntunku kembali pada ketenangan."</p>
+                            </div>
+                        </div>
+
+                        <!-- Accordion Item 5 -->
+                        <div class="acc-item">
+                            <button class="acc-header">
+                                5. Ketulusan setiap sentuhanmu <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="acc-content">
+                                <p>"Genggaman tanganmu, usapan tenang untuk diriku, dan dekap hangatmu tidak pernah gagal menyalurkan rasa aman yang mendalam. Setiap bersentuhan, aku tahu aku berada di tempat terbaik."</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- =========================================
+                 FINAL SECTION: THE LETTER & PLAYLIST (Penutup)
+                 ========================================= -->
+            <section id="final-section" class="py-24 border-t border-neutral-950/60 bg-black/20">
+                <div class="container mx-auto px-6 max-w-4xl text-center">
+                    
+                    <!-- FITUR AMPLOP SURAT (The Royal Letter) -->
+                    <div class="mb-20">
+                        <p class="font-['Cinzel'] text-[#D4AF37] tracking-[3px] text-sm uppercase mb-4">You have a letter from the curator. Click to open.</p>
+                        
+                        <div class="envelope-container" id="curator-envelope">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-front"></div>
+                            <div class="wax-seal">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div class="letter-paper text-left">
+                                <div class="letter-content">
+                                    <h4 class="letter-title font-bold">Dearest Keyla</h4>
+                                    <p class="letter-body">
+                                        Menjelajahi lorong kehidupan bersamamu adalah takdir paling istimewa yang senantiasa kusyukuri. Layaknya karya seni berkelas yang abadi, perhatianmu, tawa hangatmu, dan caramu menyayangiku adalah warna-warna terindah yang melengkapi kanvas duniaku yang sunyi.<br><br>
+                                        Semoga ruang pameran kecil yang megah ini bisa menjadi saksi bisu betapa anggun, berharga, dan istimewanya dirimu di mataku. Terima kasih telah bersedia melangkah berdampingan denganku menembus waktu. I love you, yesterday, today, and tomorrow.
+                                    </p>
+                                    <div class="letter-footer">Kyy</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="envelope-hint text-xs tracking-wider text-neutral-400 mt-4 uppercase">Klik amplop di atas untuk membaca</p>
+                    </div>
+
+                    <!-- LINK PLAYLIST SPOTIFY (Our Soundtrack) -->
+                    <div class="mt-16 max-w-lg mx-auto p-8 rounded-lg spotify-bar text-center">
+                        <div class="text-[#D4AF37] text-3xl mb-4">
+                            <i class="fa-brands fa-spotify"></i>
+                        </div>
+                        <h4 class="font-['Cinzel'] font-bold text-sm tracking-widest text-[#F9F6EE] uppercase mb-2">Our Soundtrack</h4>
+                        <p class="font-['Playfair_Display'] italic text-neutral-300 text-xs md:text-sm mb-6">
+                            "Listen to our special playlist while walking through our memories."
+                        </p>
+                        <!-- Ganti '#' dengan playlist Spotify milik Anda -->
+                        <a href="https://open.spotify.com/playlist/6OvwujAgMoOuT8zxesbcS2?si=o_Md6NX8T7q8cO_huQYSRQ" target="_blank" class="playlist-btn inline-flex items-center gap-2 border border-[#D4AF37] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300">
+                            Play Spotify Playlist <i class="fa-solid fa-play text-[10px]"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="py-16 text-center border-t border-neutral-950/60 bg-black/40">
+            <div class="container mx-auto px-6">
+                <p class="font-['Playfair_Display'] italic text-neutral-300 text-xl md:text-2xl">
+                    "i’ll still choose u, everyday."
+                </p>
+                <div class="w-16 h-[1.5px] bg-[#D4AF37]/50 mx-auto mt-4"></div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT FOR SYSTEM CONTROL (Aman, Tanpa Timing Bugs / ReferenceError) -->
+    <script>
+        function initGalleryExhibition() {
+            const gate = document.getElementById('entrance-gate');
+            const wrapper = document.getElementById('gallery-wrapper');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            const gateBtn = document.getElementById('gate-btn');
+            const envelope = document.getElementById('curator-envelope');
+            const accHeaders = document.querySelectorAll('.acc-header');
+
+            // 1. OPEN MUSEUM GATE & START MUSIC (Pintu Megah Terbelah Dua)
+            function openMuseum() {
+                if (!gate || !wrapper) return;
+
+                // Jalankan animasi gerbang kayu mahoni membelah ke samping
+                gate.classList.add('opened');
+
+                // Jalankan latar musik secara otomatis
+                if (music) {
+                    music.play().then(() => {
+                        if (musicBtn) musicBtn.classList.add('playing');
+                    }).catch(err => {
+                        console.log("Audio diblokir oleh browser sebelum ada interaksi fisik pengguna.", err);
+                    });
+                }
+
+                // Tampilkan galeri utama dengan efek fade-in
+                wrapper.classList.add('visible');
+
+                // Sembunyikan gerbang setelah animasi selesai (1.5 detik)
+                setTimeout(() => {
+                    gate.style.display = 'none';
+                }, 1500);
+            }
+
+            // 2. TOGGLE BACKGROUND MUSIC PLAY/PAUSE
+            function toggleMusic() {
+                if (!music || !musicBtn) return;
+                if (music.paused) {
+                    music.play().then(() => {
+                        musicBtn.classList.add('playing');
+                    });
+                } else {
+                    music.pause();
+                    musicBtn.classList.remove('playing');
+                }
+            }
+
+            // 3. ACCORDION SYSTEM (Alasan Aku Sayang Kamu)
+            function toggleAccordion(element) {
+                if (!element) return;
+                const currentItem = element.parentElement;
+                const content = currentItem.querySelector('.acc-content');
+                const isActive = currentItem.classList.contains('active');
+
+                // Tutup item akordeon lain yang sedang terbuka
+                document.querySelectorAll('.acc-item').forEach(item => {
+                    item.classList.remove('active');
+                    const innerContent = item.querySelector('.acc-content');
+                    if (innerContent) innerContent.style.maxHeight = null;
+                });
+
+                // Buka item saat ini jika sebelumnya tidak aktif
+                if (!isActive && content) {
+                    currentItem.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            }
+
+            // 4. ROYAL ENVELOPE TOGGLE
+            function toggleEnvelope() {
+                if (envelope) {
+                    envelope.classList.toggle('opened');
+                }
+            }
+
+            // 5. EVENT LISTENERS BINDINGS (Sangat Aman dari ReferenceError offline HP/Laptop)
+            if (gateBtn) {
+                gateBtn.addEventListener('click', openMuseum);
+            }
+
+            if (musicBtn) {
+                musicBtn.addEventListener('click', toggleMusic);
+            }
+
+            if (envelope) {
+                envelope.addEventListener('click', toggleEnvelope);
+            }
+
+            accHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    toggleAccordion(this);
+                });
+            });
+
+            // Klik di luar amplop untuk menutup kembali secara otomatis
+            window.onclick = function(event) {
+                if (envelope && envelope.classList.contains('opened') && event.target === envelope) {
+                    toggleEnvelope();
+                }
+            }
+        }
+
+        // Pengecekan kesiapan dokumen untuk mencegah timing issue pada berbagai WebView/HP
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGalleryExhibition);
+        } else {
+            initGalleryExhibition();
+        }
+    </script>
+</body>
+    </html>
