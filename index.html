@@ -1,1 +1,601 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Royal Museum of Us — Grand Art Gallery</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        /* COLOR PALETTE & GALLERY VARIABLES */
+        :root {
+            --bg-velvet: #4A0E17; /* Deep Velvet Red */
+            --bg-velvet-dark: #220307;
+            --text-ivory: #F9F6EE; /* Soft Ivory */
+            --gold-primary: #D4AF37; /* Royal Ornate Gold */
+            --gold-bright: #FFD700;
+            --gold-dark: #8C6D1F;
+            
+            --font-display: 'Cinzel', serif;
+            --font-heading: 'Playfair Display', serif;
+            --font-literary: 'Cormorant Garamond', serif;
+            --font-cursive: 'Great Vibes', cursive;
+        }
+
+        body {
+            font-family: var(--font-literary);
+            background-color: var(--bg-velvet-dark);
+            color: var(--text-ivory);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ROYAL VELVET WALLS */
+        .velvet-walls {
+            background: radial-gradient(circle, var(--bg-velvet) 0%, var(--bg-velvet-dark) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* GRAND ENTRANCE - MAHOGANY WOOD GATES */
+        #entrance-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2000;
+            display: flex;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .gate-door {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #1f0508 0%, #3a0d13 50%, #150204 100%);
+            border: 4px double var(--gold-primary);
+            position: relative;
+            display: flex;
+            align-items: center;
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.9);
+        }
+
+        .door-left {
+            justify-content: flex-end;
+            border-right: 3px solid var(--gold-primary);
+        }
+
+        .door-right {
+            justify-content: flex-start;
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        /* Classical Royal Door Panels */
+        .door-panel-dec {
+            position: absolute;
+            width: 75%;
+            height: 80%;
+            border: 2px solid rgba(212, 175, 55, 0.25);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            top: 10%;
+        }
+        .door-left .door-panel-dec { right: 8%; border-right: none; }
+        .door-right .door-panel-dec { left: 8%; border-left: none; }
+
+        /* Gold Plaque Button */
+        .gold-plaque-btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2010;
+            background: linear-gradient(135deg, #220307 0%, #4A0E17 100%);
+            color: var(--gold-primary);
+            border: 4px double var(--gold-primary);
+            padding: 18px 40px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px rgba(212,175,55,0.4);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gold-plaque-btn:hover {
+            border-color: var(--gold-bright);
+            color: var(--gold-bright);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.95), 0 0 25px rgba(255,215,0,0.6);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        /* Opening Triggers */
+        #entrance-gate.opened {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #entrance-gate.opened .door-left {
+            transform: translateX(-100%);
+        }
+        #entrance-gate.opened .door-right {
+            transform: translateX(100%);
+        }
+        #entrance-gate.opened .gold-plaque-btn {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.7);
+            pointer-events: none;
+        }
+
+        /* CONTENT VISIBILITY */
+        #gallery-wrapper {
+            opacity: 0;
+            transition: opacity 1.8s ease;
+        }
+        #gallery-wrapper.visible {
+            opacity: 1;
+        }
+
+        /* CLASSICAL SPOTLIGHT GRADIENT */
+        .spotlight-source {
+            position: relative;
+        }
+        .spotlight-source::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 400px;
+            background: radial-gradient(circle at top, rgba(255, 230, 150, 0.22) 0%, rgba(255, 230, 150, 0.04) 50%, transparent 75%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ORNATE GOLD FRAMES */
+        .ornate-gold-frame {
+            border: 14px double var(--gold-primary);
+            background-color: #0d0d0d;
+            padding: 10px;
+            box-shadow: 
+                0 0 0 2px #5a441b, 
+                0 20px 45px rgba(0,0,0,0.95), 
+                inset 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.5s ease, box-shadow 0.5s;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .ornate-gold-frame:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: var(--gold-bright);
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.4),
+                0 30px 60px rgba(0,0,0,1);
+        }
+
+        /* Oval Variant */
+        .ornate-gold-frame.oval {
+            border-radius: 9999px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+        }
+
+        .canvas-area {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            background-color: #111;
+            position: relative;
+        }
+
+        .ornate-gold-frame.oval .canvas-area {
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        .canvas-area img, .canvas-area video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(35%) brightness(0.95);
+            transition: filter 0.6s ease, transform 0.6s ease;
+        }
+
+        .ornate-gold-frame:hover .canvas-area img,
+        .ornate-gold-frame:hover .canvas-area video {
+            filter: grayscale(0%) brightness(1.05);
+            transform: scale(1.04);
+        }
+
+        /* ROYAL CURATOR PLACARDS */
+        .museum-placard {
+            background: linear-gradient(135deg, #160205 0%, #29060b 100%);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 10px 20px rgba(0,0,0,0.5);
+            color: var(--text-ivory);
+            padding: 18px;
+            margin-top: 18px;
+            text-align: left;
+            width: 100%;
+            transition: border-color 0.4s, background-color 0.4s;
+        }
+
+        .ornate-gold-frame:hover + .museum-placard {
+            border-color: var(--gold-bright);
+            background: linear-gradient(135deg, #220307 0%, #3a080f 100%);
+        }
+
+        .ornate-gold-frame.oval + .museum-placard {
+            margin-top: 25px;
+        }
+
+        .placard-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .placard-desc {
+            font-family: var(--font-literary);
+            font-size: 0.95rem;
+            color: var(--text-ivory);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* LARGE CENTRALIZED PLACARD */
+        .velvet-large-placard {
+            background: linear-gradient(135deg, #0f0103 0%, #1f0307 100%);
+            border: 3px double var(--gold-primary);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.9);
+        }
+
+        /* MUSIC TOGGLE BUTTON */
+        #music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--bg-velvet-dark);
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.8);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        #music-btn:hover {
+            border-color: var(--gold-bright);
+            color: var(--gold-bright);
+            transform: scale(1.05);
+        }
+
+        #music-btn.playing i {
+            animation: rotate-disc 4s linear infinite;
+        }
+
+        @keyframes rotate-disc {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* INTERACTIVE ROYAL ENVELOPE */
+        .envelope-container {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            background: #2b060b;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            cursor: pointer;
+            margin: 40px auto;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 158px solid transparent;
+            border-right: 158px solid transparent;
+            border-top: 100px solid #8C6D1F; /* Gold top flap color */
+            transform-origin: top;
+            transition: transform 0.5s ease, z-index 0.2s;
+            z-index: 3;
+        }
+
+        .envelope-container.opened .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-front {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 158px solid var(--bg-velvet-dark);
+            border-right: 158px solid var(--bg-velvet-dark);
+            border-bottom: 110px solid #2b060b;
+            border-radius: 0 0 4px 4px;
+            z-index: 2;
+        }
+
+        /* Wax Seal (Heart) */
+        .wax-seal {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 44px;
+            height: 44px;
+            background: #800000;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5), inset 0 0 5px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            font-size: 0.95rem;
+            z-index: 4;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        .envelope-container.opened .wax-seal {
+            opacity: 0;
+            transform: translate(-50%, -100px) scale(0.5);
+        }
+
+        /* Letter Inside Envelope */
+        .letter-paper {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            right: 15px;
+            background-color: #FAF8F5; 
+            color: #1A1A1A;
+            padding: 24px;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 1;
+            transform: translateY(0);
+            max-height: 140px;
+            overflow: hidden;
+            border: 1px solid #ECE3D5;
+        }
+
+        .letter-content {
+            opacity: 0.3;
+            transition: opacity 0.4s;
+        }
+
+        .envelope-container.opened .letter-paper {
+            transform: translateY(-190px);
+            z-index: 4;
+            max-height: 450px;
+            height: 380px;
+            overflow-y: auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .envelope-container.opened .letter-paper .letter-content {
+            opacity: 1;
+        }
+
+        .letter-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: #4A0E17;
+            border-bottom: 1px dotted #DCD1BF;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .letter-body {
+            font-family: var(--font-cursive);
+            font-size: 1.5rem;
+            line-height: 1.7;
+            color: #2E1A1A;
+            margin-bottom: 15px;
+        }
+
+        .letter-footer {
+            font-family: var(--font-cursive);
+            font-size: 2rem;
+            color: #4A0E17;
+            text-align: right;
+        }
+
+        /* SPOTIFY WIDGET THEME */
+        .spotify-bar {
+            border: 1px solid var(--gold-primary);
+            background: linear-gradient(135deg, #120103 0%, #1c0306 100%);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* ACCORDION (Alasan Aku Sayang Kamu) */
+        .museum-accordion {
+            background: linear-gradient(135deg, #1f0407 0%, #130103 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        .acc-item {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .acc-item:last-child {
+            border-bottom: none;
+        }
+
+        .acc-header {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 22px 16px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-ivory);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .acc-header:hover {
+            color: var(--gold-primary);
+        }
+
+        .acc-header i {
+            font-size: 0.8rem;
+            transition: transform 0.4s ease;
+            color: var(--gold-primary);
+        }
+
+        .acc-item.active .acc-header {
+            color: var(--gold-primary);
+        }
+
+        .acc-item.active .acc-header i {
+            transform: rotate(180deg);
+            color: var(--gold-bright);
+        }
+
+        .acc-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .acc-content p {
+            padding: 0 16px 22px 16px;
+            font-family: var(--font-literary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #E2D1C3;
+            font-style: italic;
+        }
+
+        /* SCROLLBAR STYLE */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-velvet-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-bright);
+        }
+    </style>
+</head>
+<body class="selection:bg-[#D4AF37] selection:text-black">
+
+    <!-- FLOATING MUSIC CONTROLLER -->
+    <button id="music-btn">
+        <i class="fa-solid fa-music"></i>
+    </button>
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- =========================================
+         GRAND ENTRANCE (Gerbang Museum Klasik & Musik)
+         ========================================= -->
+    <div id="entrance-gate">
+        <div class="gate-door door-left">
+            <div class="door-panel-dec"></div>
+        </div>
+        <button class="gold-plaque-btn" id="gate-btn">
+            Open the Exhibition <i class="fa-solid fa-crown"></i>
+        </button>
+        <div class="gate-door door-right">
+            <div class="door-panel-dec"></div>
+        </div>
+    </div>
+
+    <!-- MAIN GALLERY WRAPPER -->
+    <div id="gallery-wrapper" class="velvet-walls">
+        
+        <!-- HEADER / LOBBY -->
+        <header class="relative py-28 text-center border-b border-neutral-900/60 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent pointer-events-none"></div>
+            <div class="relative z-10 container mx-auto px-6 max-w-4xl">
+                <p class="font-['Cinzel'] text-[#D4AF37] tracking-[6px] uppercase text-xs md:text-sm mb-4">Royal Private Exhibition</p>
+                <h1 class="font-['Cinzel'] font-bold text-3xl md:text-5xl text-[#F9F6EE] tracking-widest mb-6 drop-shadow-2xl">
+                    The Grand Art Gallery of Us
+                </h1>
+                <p class="font-['Playfair_Display'] italic text-neutral-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                    "Beberapa mahakarya agung dunia dipahat di atas marmer kuno, namun keindahan terindah dipahat dengan kasih sayang di setiap detik bersamamu."
+                </p>
+            </div>
+        </header>
+
+        <!-- MAIN EXHIBITION FLOW -->
+        <main class="py-16">
+
+            <!-- =========================================
+                 EXHIBITION ROOM 1: "SOLO EXHIBITION" (Foto Sendiri)
+                 ========================================= -->
+            <section id="solo-exhibition" class="spotlight-source py-16">
+                <div class="container mx-auto px-6">
+                    
+                    <div class="text-center mb-24 relative z-10">
+                        <h2 class="font-['Cinzel'] font-semibold text-2xl md:text-4xl text-[#D4AF37] tracking-[4px] uppercase mb-3">
+                            Exhibition Room I
+                        </h2>
+                        <p class="font-['Playfair_Display'] italic text-neutral-300 text-lg md:text-xl">
+                            "Room I: Pieces of You"
+                        </p>
+                        <div class="w-20 h-[1.5px] bg-[#D4AF37] mx-auto mt-4 opacity-75"></div>
+                    </div>
+
+                    <!-- DYNAMIC & VARIATIVE GRID -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 relative z-10">
+
+                        <!-- Item 1: OVAL -->
+                        <div class="flex flex-col items-center">
+                            <div class="ornate-gold-frame oval max-w-[280px] md:max-w-xs">
+                                <div class="w-full h-full overflow-hidden rounded-full">
+                                    <img src="10
